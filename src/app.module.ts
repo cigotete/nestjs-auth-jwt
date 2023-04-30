@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/authentication'),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/jwt-auth'),
     UsersModule,
     AuthModule,
   ],
