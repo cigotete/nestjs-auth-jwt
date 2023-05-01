@@ -8,16 +8,25 @@ import { UsersService } from 'src/users/users.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from '../users/users.model';
 import { LocalStrategy } from './local.auth';
+import { RefreshTokenModule } from '../refresh-token/refresh-token.module';
+import {
+  RefreshToken,
+  RefreshTokenSchema,
+} from '../refresh-token/refresh-token.model';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
+    RefreshTokenModule,
     JwtModule.register({
       secret: 'secretKey',
       signOptions: { expiresIn: '60s' },
     }),
-    MongooseModule.forFeature([{ name: 'user', schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: 'user', schema: UserSchema },
+      { name: RefreshToken.name, schema: RefreshTokenSchema },
+    ]),
   ],
   providers: [AuthService, UsersService, LocalStrategy],
   controllers: [AuthController],
